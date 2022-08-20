@@ -42,12 +42,12 @@ export const insertData = async(data,id)=>{
     let str="id="+data['id']+"&BC="+data['BC']+"&Did="+data['Did']+"&IC="+data['IC']+"&BCD="+data['BCD']+"&CN="+data['CN']+"&PD="+data['PD']+
             "&DT="+data['DT']+"&CPT="+data['CPT']+"&CD="+data['CD']+"&DCD="+data['DCD']+"&Pid="+data['Pid']+"&Iid="+data['Iid']+"&BY="+data['BY']+
             "&DD="+data['DD']+"&TOM="+data['TOM'];
-    let response;//=await axios.get("http://localhost:8080/Backened/Add?"+str)
+    let response=await axios.get("http://localhost:8080/Backened/Add?"+str)
     return response;
 }
 export const updateData = async(data)=>{
     let str="id="+data['id']+"&IC="+data['IC']+"&CPT="+data['CPT'];
-    let response;//=await axios.get("http://localhost:8080/Backened/Update?"+str)
+    let response=await axios.get("http://localhost:8080/Backened/Update?"+str)
     return response;
 }
 export const deleteData = async(selected)=>{
@@ -55,24 +55,24 @@ export const deleteData = async(selected)=>{
     for(var i=1;i<selected.length;i++){
         str=str+"&selected="+selected[i];
     }
-    let response;//=await axios.get("http://localhost:8080/Backened/Delete?"+str);
+    let response=await axios.get("http://localhost:8080/Backened/Delete?"+str);
     return response;
 }
 
 export const getData = async()=>{
-    let response;//=await axios.get("http://localhost:8080/Backened/DataLoading")
+    let response=await axios.get("http://localhost:8080/Backened/DataLoading")
     return response.data.records;
 }
 export const updateBucket = async(data)=>{
     let str="Did="+data['doc_id']+"&AB="+data['aging_bucket'];
-    let response;//=await axios.get("http://localhost:8080/Backened/UpdateBucket?"+str)
+    let response=await axios.get("http://localhost:8080/Backened/UpdateBucket?"+str)
     return response;
 }
 
 export const getPrediction = async(records,selected)=>{
     let filterRecords=records.filter(x=>selected.indexOf(x.id)!=-1);
     let doc_ids=filterRecords.map(x=>x.Did);
-    let response;//=await axios.post("http://127.0.0.1:5000/get_prediction",{data:doc_ids},{type:"application/json"});
+    let response=await axios.post("http://127.0.0.1:5000/get_prediction",{data:doc_ids},{type:"application/json"});
     let docs=response.data.map(e=>e.doc_id)
     let leftDoc=doc_ids.filter(e=>!docs.includes(e));
     let leftData=records.filter(e=>leftDoc.includes(e.Did));
@@ -100,7 +100,7 @@ export const get_new_prediction=async(item)=>{
     let BY=item.BY
     let DD=item.DD
     let TOM=item.TOM
-    let response;//=await axios.post("http://127.0.0.1:5000/",{BC,Did,NC,BCD,CN,PD,CPT,CD,BY,DD,TOM},{type:"application/json"})
+    let response=await axios.post("http://127.0.0.1:5000/",{BC,Did,NC,BCD,CN,PD,CPT,CD,BY,DD,TOM},{type:"application/json"})
     return response.data
 
 }
